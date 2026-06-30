@@ -1,6 +1,6 @@
 /* ============================================
-   GLOBAL TYPOGRAPHY SYSTEM — EB GARABOND SET
-   Makes your site look premium & readable
+   GLOBAL TYPOGRAPHY SYSTEM
+   Depends on variables defined in _variables.scss
 ============================================ */
 
 /* Base font size (desktop) */
@@ -9,7 +9,7 @@ html {
 }
 
 /* Mobile = slightly bigger text for readability */
-@media (max-width: 600px) {
+@media (max-width: $bp-mobile) {
     html {
         font-size: 18px;
     }
@@ -17,10 +17,9 @@ html {
 
 /* Global text styling */
 body {
-    font-family: "EB Garamond", serif;
+    font-family: $font-body; /* Hooked into Map! */
     line-height: 1.65;
     font-weight: 400;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -29,7 +28,7 @@ body {
    HEADINGS — Elegant & Balanced
 -------------------------------------------- */
 h1, h2, h3, h4, h5 {
-    font-family: "EB Garamond", serif;
+    font-family: $font-main; /* Hooked into Map! */
     font-weight: 600;
     letter-spacing: 0.4px;
     color: var(--text);
@@ -56,6 +55,13 @@ p {
 --------------------------------------------- */
 a {
     font-weight: 500;
+    color: var(--link);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--link-hover);
 }
 
 /* --------------------------------------------
@@ -87,15 +93,20 @@ blockquote {
     opacity: 0.9;
     margin: 1.2rem 0;
     font-size: 1.15rem;
+    color: var(--text-soft); /* Ensures perfect contrast in dark mode */
 }
 
 /* --------------------------------------------
-   CODE TEXT — readable
+   INLINE CODE TEXT
+   (Block code is handled in _single.scss)
 --------------------------------------------- */
 code {
-    font-family: "JetBrains Mono", monospace;
+    font-family: ui-monospace, "JetBrains Mono", monospace;
     font-size: 0.95rem;
     padding: 2px 4px;
-    background: rgba(255,255,255,0.08);
+    
+    /* Synced with your God File and Single file! */
+    background: rgba(128, 128, 128, 0.15); 
+    color: var(--code-chip);
     border-radius: 4px;
 }

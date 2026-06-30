@@ -1,0 +1,385 @@
+/* =======================================
+   SINGLE ARTICLE / POST LAYOUT
+   Depends on _variables.scss
+======================================= */
+
+/* =======================================
+   BLURRED HERO BACKGROUND
+======================================= */
+
+.hero-box {
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    height: 260px;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    border-radius: var(--radius-m, 12px); /* Fallback added */
+}
+
+.hero-blur {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(16px);
+    transform: scale(1.2);
+    opacity: 0.85;
+}
+
+.hero-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+    filter: brightness(0.92);
+}
+
+/* =======================================
+   ARTICLE LAYOUT
+======================================= */
+
+.single-container {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.4rem 4rem;
+}
+
+.single-header {
+    margin-top: 0.5rem;
+}
+
+.single-category {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+}
+
+.single-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.25;
+    color: var(--section-title);
+}
+
+.single-meta {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    margin-bottom: 1rem;
+}
+
+.single-divider {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid var(--divider-line);
+}
+
+/* =======================================
+   IMAGES & LIGHTBOX
+======================================= */
+
+.md-image {
+    max-width: 780px;
+    margin: 2rem auto;
+}
+
+.md-image.size-small  { max-width: 320px; }
+.md-image.size-medium { max-width: 420px; }
+.md-image.size-large  { max-width: 780px; }
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92); /* Kept dark as it's an overlay standard */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: $z-lightbox; /* Using new Map! */
+}
+
+.lightbox[hidden] {
+    display: none;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 14px;
+}
+
+.lb-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* =======================================
+   CONTENT
+======================================= */
+
+.single-content {
+    margin-top: 20px;
+    font-size: 1.07rem;
+    line-height: 1.82;
+    color: var(--text);
+}
+
+.single-content p {
+    margin-bottom: 1.3rem;
+}
+
+.single-content img {
+    display: block;
+    margin: 20px auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.single-content video,
+.single-content iframe {
+    display: block;
+    margin: 30px auto;
+    max-width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* =======================================
+   CODE BLOCKS (Now uses variables!)
+======================================= */
+
+pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+
+    font-family: ui-monospace, "JetBrains Mono", monospace;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--code-text);
+}
+
+pre code {
+    background: none !important;
+    padding: 0;
+    color: inherit;
+    font-family: inherit;
+}
+
+code {
+    background: rgba(128, 128, 128, 0.15); /* Replaces #2f2f2f for better light/dark contrast */
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-size: 0.92rem;
+    color: var(--code-chip);
+}
+
+/* COPY BUTTON */
+.code-block-wrapper {
+    position: relative;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease, background 0.25s ease;
+    font-size: 0.75rem;
+}
+
+.code-block-wrapper:hover .copy-code-btn {
+    opacity: 1;
+}
+
+.copy-code-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #fff;
+}
+
+.copy-code-btn.copied {
+    background: #10b981; /* Success green can stay hardcoded or move to variables later */
+}
+
+/* ===========================================
+   LEFT SIDEBAR TOC (No more dark mode overrides!)
+=========================================== */
+
+.toc-sidebar {
+    position: fixed;
+    top: 120px;
+    left: 32px;
+    width: 260px;
+    max-height: 70vh;
+    overflow: hidden;
+    padding: 1.1rem 1.3rem 1.3rem;
+
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+
+    color: var(--text);
+    z-index: $z-sidebar; /* Using new Map! */
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.toc-title {
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--divider-line);
+}
+
+.toc-arrow {
+    transition: transform 0.25s ease;
+    opacity: 0.7;
+}
+
+.toc-sidebar.closed .toc-arrow {
+    transform: rotate(-90deg);
+}
+
+.toc-content {
+    padding-left: 0.9rem;
+    padding-top: 0.4rem;
+    border-left: 2px solid var(--divider-line);
+    overflow-y: auto;
+    max-height: 52vh;
+    scrollbar-width: thin;
+    scrollbar-color: var(--divider-line) transparent;
+}
+
+.toc-content::-webkit-scrollbar { width: 6px; }
+.toc-content::-webkit-scrollbar-thumb {
+    background: var(--divider-line);
+    border-radius: 6px;
+}
+
+.toc-content ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.toc-content li {
+    margin: 10px 0;
+    padding-bottom: 8px;
+    font-size: 0.95rem;
+    position: relative;
+}
+
+.toc-content li::after {
+    content: "";
+    display: block;
+    margin-top: 8px;
+    border-bottom: 1px dashed var(--divider-line);
+}
+
+.toc-content li:last-child::after { display: none; }
+.toc-content li ul li { margin-left: 14px; opacity: 0.75; }
+
+.toc-content a {
+    text-decoration: none;
+    color: var(--text-soft);
+    transition: color 0.2s ease;
+}
+
+.toc-content a:hover,
+.toc-content a.active {
+    color: var(--section-title);
+    font-weight: 600;
+}
+
+.toc-sidebar.closed .toc-content {
+    max-height: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    border-left-color: transparent;
+    opacity: 0;
+}
+
+/* ============================================
+   FIXED HEADER (Z-Index fix)
+============================================ */
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-header; /* Using new Map! */
+}
+
+.single-page-padding {
+    padding-top: 110px;
+}
+
+/* ============================================
+   TABLE BORDERS
+============================================ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+table th,
+table td {
+    border: 1px solid var(--divider-line);
+    padding: 10px 14px;
+    text-align: left;
+}
+
+table th {
+    background: var(--glass-bg);
+    font-weight: 600;
+}

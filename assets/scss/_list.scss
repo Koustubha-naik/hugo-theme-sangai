@@ -1,5 +1,6 @@
 /* =====================================
-   LIST SECTION
+   LIST SECTION / BLOG FEED
+   Depends on variables defined in _variables.scss
 ===================================== */
 
 .page-title {
@@ -15,7 +16,9 @@
     gap: 26px;
 }
 
-/* Blog card */
+/* =====================================
+   BLOG CARD (.list-row)
+===================================== */
 .list-row {
     width: 100%;
     max-width: 840px;
@@ -23,14 +26,13 @@
 
     display: flex;
     gap: 20px;
-    border-radius: 20px;
+    border-radius: var(--radius-l, 20px);
 
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
 
     color: var(--text);
     text-decoration: none;
-
     transition: 0.25s ease;
 }
 
@@ -43,11 +45,11 @@
     }
 }
 
-/* Thumbnail (only appears if .Params.image exists) */
+/* Thumbnail */
 .list-thumb {
     width: 220px;
     height: 140px;
-    border-radius: 25px;
+    border-radius: var(--radius-l, 25px);
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -76,11 +78,11 @@
 
 .list-meta {
     font-size: 0.85rem;
-    opacity: 0.75;
+    color: var(--text-soft); /* Replaced hardcoded opacity: 0.75 */
 }
 
-/* MOBILE */
-@media (max-width: 720px) {
+/* MOBILE RESPONSIVE (Using God File Variable) */
+@media (max-width: $bp-tablet) {
     .list-row {
         flex-direction: column;
         max-width: 95%;
@@ -91,7 +93,6 @@
         height: 180px;
     }
 }
-
 
 
 /* =====================================
@@ -106,7 +107,6 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-
     flex-wrap: wrap;
 }
 
@@ -115,13 +115,12 @@
     padding: 6px 14px;
     font-size: 0.95rem;
 
-    border-radius: 10px;
+    border-radius: var(--radius-m, 10px);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
 
     color: var(--text);
     text-decoration: none;
-
     transition: 0.2s ease;
 }
 
@@ -156,7 +155,6 @@
 
     color: var(--text);
     font-size: 0.95rem;
-
     transition: 0.2s ease;
 }
 
@@ -164,26 +162,22 @@
     background: var(--glass-hover);
 }
 
-/* Active page (filled circle) */
+/* Active page (filled circle) 
+   By using section-title (black in light mode, white in dark mode) and bg (white in light mode, black in dark mode), 
+   it automatically contrasts perfectly without a special dark mode rule! 
+*/
 .page-number.active {
     background: var(--section-title);
-    color: white;
+    color: var(--bg);
     border-color: var(--section-title);
     font-weight: bold;
 }
 
-/* MOBILE */
-@media (max-width: 720px) {
+/* MOBILE PAGINATION (Using God File Variable) */
+@media (max-width: $bp-tablet) {
     .page-number {
         width: 32px;
         height: 32px;
         font-size: 0.85rem;
     }
-}
-
-/* Dark Theme Fix */
-[data-theme="dark"] .page-number.active {
-    background: var(--accent, #4c8fff);
-    border-color: var(--accent, #4c8fff);
-    color: #fff;
 }

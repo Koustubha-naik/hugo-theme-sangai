@@ -1,0 +1,117 @@
+/* ======================================================
+   BASE & STRUCTURAL STYLES (_base.scss)
+   Depends on _variables.scss
+====================================================== */
+
+html,
+body {
+  height: 100%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Flex body for sticky footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg); /* Hooked into God File! */
+}
+
+/* ======================================================
+   PAGE CONTAINER
+====================================================== */
+.page-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  flex: 1; /* This is what pushes the footer to the bottom */
+}
+
+/* ======================================================
+   404 PAGE — GLITCH EFFECT
+====================================================== */
+.not-found-center {
+  min-height: calc(100vh - 260px); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 20px;
+}
+
+.nf-title {
+  position: relative;
+  display: inline-block;
+  font-size: 78px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nf-text {
+  font-size: 18px;
+  max-width: 480px;
+  color: var(--text-soft);
+}
+
+.nf-btn {
+  margin-top: 10px;
+  padding: 10px 22px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-m, 12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text);
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.nf-btn:hover {
+  transform: translateY(-2px);
+  background: var(--glass-hover);
+}
+
+.nf-title span {
+  position: relative;
+  display: inline-block;
+}
+
+.nf-title span::before,
+.nf-title span::after {
+  content: "404";
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+.nf-title span::before {
+  left: 2px;
+  text-shadow: -2px 0 red;
+  animation: glitch-1 2s infinite linear alternate-reverse;
+}
+
+.nf-title span::after {
+  left: -2px;
+  text-shadow: 2px 0 cyan;
+  animation: glitch-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-1 {
+  0%   { clip-path: inset(0 0 20% 0); }
+  25%  { clip-path: inset(40% 0 40% 0); }
+  50%  { clip-path: inset(10% 0 60% 0); }
+  75%  { clip-path: inset(50% 0 20% 0); }
+  100% { clip-path: inset(0 0 30% 0); }
+}
+
+@keyframes glitch-2 {
+  0%   { clip-path: inset(80% 0 0 0); }
+  20%  { clip-path: inset(10% 0 70% 0); }
+  40%  { clip-path: inset(50% 0 30% 0); }
+  60%  { clip-path: inset(0 0 50% 0); }
+  100% { clip-path: inset(30% 0 10% 0); }
+}

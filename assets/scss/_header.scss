@@ -1,5 +1,6 @@
 /* ============================================
-   GLASS HEADER — FINAL FIXED VERSION
+   GLASS HEADER
+   Depends on variables defined in _variables.scss
 ============================================ */
 
 .site-header {
@@ -8,31 +9,25 @@
     width: 100%;
 
     /* FIXED HEIGHT WITHOUT SHRINKING */
-    padding: 20px 28px;     /* adds vertical height */
-    min-height: 100px;      /* ensures header never collapses */
+    padding: 20px 28px;     
+    min-height: 100px;      
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    /* GLASS EFFECT */
-    background: rgba(255,255,255,0.08);
+    /* GLASS EFFECT USING VARIABLES */
+    background: var(--header-bg);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
 
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid var(--glass-border);
     box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-    z-index: 1000;
+    z-index: $z-header; /* Using new Map! */
 }
-
-/* DARK MODE GLASS */
-[data-theme="dark"] .site-header {
-    background: rgba(0,0,0,0.28);
-}
-
 
 /* ============================================
-   LEFT SECTION — MENU BUTTON (FINAL SVG VERSION)
+   LEFT SECTION — MENU BUTTON
 ============================================ */
 
 .menu-button {
@@ -46,7 +41,6 @@
     justify-content: center;
 
     color: var(--text);
-
     transition: transform 0.15s ease, opacity 0.2s ease;
 }
 
@@ -58,29 +52,14 @@
     transition: opacity 0.25s ease, transform 0.15s ease;
 }
 
-/* Hover animation */
 .menu-button:hover svg {
     opacity: 0.7;
 }
 
-/* Tap bounce */
 .menu-button:active svg {
     transform: scale(0.84);
     opacity: 0.6;
 }
-
-/* ============================================
-   MOBILE RESPONSIVE
-============================================ */
-
-@media (max-width: 600px) {
-
-    .menu-button svg {
-        width: 32px;
-        height: 32px;
-    }
-}
-
 
 /* ============================================
    CENTER TITLE
@@ -93,15 +72,14 @@
 }
 
 .brand {
-    font-family: "HoeflerText", serif;
+    font-family: $font-main; /* Using new Map! */
     font-size: 2.5rem;
     font-weight: 600;
     color: var(--text);
 }
 
-
 /* ============================================
-   THEME SWITCH
+   THEME SWITCH (Physical UI elements kept hardcoded)
 ============================================ */
 
 .theme-switch {
@@ -142,15 +120,15 @@
     transform: translateX(24px);
 }
 
-
 /* ============================================
    MOBILE RESPONSIVE
 ============================================ */
 
-@media (max-width: 600px) {
+/* Consolidated into one media query using the breakpoint variable */
+@media (max-width: $bp-mobile) {
 
     .site-header {
-        min-height: 75px;       /* slightly smaller header */
+        min-height: 75px;       
         padding: 0 18px;
     }
 
@@ -158,8 +136,9 @@
         font-size: 1.8rem;
     }
 
-    .menu-button {
-        font-size: 2.1rem;
+    .menu-button svg {
+        width: 32px;
+        height: 32px;
     }
 
     .theme-switch {

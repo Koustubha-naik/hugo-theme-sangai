@@ -19,18 +19,12 @@
 
 {{ hugo.Generator }}
 
-<!-- ===================== -->
-<!-- Favicon -->
-<!-- ===================== -->
 <link rel="icon" type="image/x-icon" href="{{ "icon/favicon.ico" | relURL }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ "icon/favicon-32x32.png" | relURL }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ "icon/favicon-16x16.png" | relURL }}">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ "icon/apple-touch-icon.png" | relURL }}">
 <link rel="manifest" href="{{ "icon/site.webmanifest" | relURL }}">
 
-<!-- ===================== -->
-<!-- Fonts -->
-<!-- ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -39,23 +33,7 @@
   rel="stylesheet"
 >
 
-<!-- ===================== -->
-<!-- Theme Variables -->
-<!-- ===================== -->
-<style>
-  :root {
-    --bg-dark: {{ .Site.Params.theme.bgDark | default "#0f0f11" }};
-    --bg-light: {{ .Site.Params.theme.bgLight | default "#ffffff" }};
-  }
-</style>
-
-<!-- ===================== -->
-<!-- Styles -->
-<!-- ===================== -->
 {{ $scss := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $scss.RelPermalink }}">
 
-<!-- ===================== -->
-<!-- Analytics -->
-<!-- ===================== -->
 {{ partial "analytics.html" . }}

@@ -1,89 +1,101 @@
-/* --------------------------------------------------
-   GLOBAL THEME VARIABLES
-   (Light + Dark mode compatible)
---------------------------------------------------- */
+/* ==========================================================================
+   THE "GOD FILE" - _variables.scss
+   All global settings, colors, scales, and maps go here.
+========================================================================== */
 
 /* -----------------------------------
-   FONT SYSTEM
+   1. TYPOGRAPHY SYSTEM
 ------------------------------------ */
-$font-main: "HoeflerText", serif;
-$font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
+$font-main: "EB Garamond", "HoeflerText", serif;
+$font-body: "EB Garamond", serif; /* Complete website is now EB Garamond */
 
 /* -----------------------------------
-   LIGHT MODE COLORS
+   2. Z-INDEX MAP (Centralized Stacking)
 ------------------------------------ */
-[data-theme="light"] {
-    /* MAIN UI */
-    --bg: #f4f4f6;                  /* soft frosted silver */
-    --text: #222;                   /* deep neutral black */
-    --header-bg: #ffffffd0;         /* slightly transparent */
-    --footer-bg: #ffffffee;
+$z-sidebar:  80;    /* TOC Sidebar */
+$z-header:   1000;  /* Fixed Header */
+$z-menu:     5000;  /* Mobile Overlay Menu */
+$z-lightbox: 9999;  /* Image Lightbox */
 
-    /* LINKS */
-    --link: #1e40af;
-    --link-hover: #1d4ed8;
+/* -----------------------------------
+   3. BREAKPOINTS (Responsive Grid)
+------------------------------------ */
+$bp-mobile:  600px;  
+$bp-tablet:  768px;  
+$bp-desktop: 900px;  
+$bp-large:   1000px; 
 
-    /* ACCENTS */
-    --accent: #3b82f6;              /* blue-500 */
+/* -----------------------------------
+   4. SPACING & RADII
+------------------------------------ */
+$radius-s: 6px;      
+$radius-m: 12px;     
+$radius-l: 24px;     
 
-    /* MENU OVERLAY */
-    --menu-overlay: rgba(255, 255, 255, 0.65);
+/* -----------------------------------
+   5. CSS VARIABLES (THEME COLORS)
+==================================== */
+
+:root[data-theme="light"] {
+    /* Base UI: Softer Sky-Grey Palette (No blinding whites or harsh pure blacks) */
+    --bg: #cedfe0;                            /* Soft, light sky-grey base */
+    --text: #1e293b;                          /* Deep charcoal/slate, easier on the eyes than #222 */
+    --text-soft: #475569;                     /* Softer slate text for subtitles/meta */
+    --section-title: #0f172a;                 /* Stronger contrast slate for headings */
+    --header-bg: rgba(240, 244, 248, 0.85);   /* Matches sky base with blur effect */
+    --footer-bg: rgba(240, 244, 248, 0.95);   /* Matches sky base with blur effect */
+
+    /* Links & Accents: Professional Sky Blues */
+    --link: #2563eb;                          /* Vibrant Sky Blue */
+    --link-hover: #1d4ed8;                    /* Deepened interactive blue */
+    --accent: #3b82f6;                        /* Consistent sky-blue brand accent */
+
+    /* Layout & Cards: Clean white on top of the soft blue wrapper */
+    --divider-line: rgba(148, 163, 184, 0.3); /* Subtle slate divider line */
+    --card-bg: #ffffff;                       /* Crisp white for card focus blocks */
+    --card-border: #e2e8f0;                   /* Light slate border */
+
+    /* Glassmorphism: Clear, harmonious glass layers */
+    --glass-bg: rgba(255, 255, 255, 0.7);     
+    --glass-border: rgba(255, 255, 255, 0.5); 
+    --glass-hover: rgba(255, 255, 255, 0.9);  
+    --menu-overlay: rgba(240, 244, 248, 0.8); 
+
+    /* Code Blocks: Intentionally dark for readability & terminal aesthetics */
+    --code-bg: #1e1e1e;                       
+    --code-text: #e6e6e6;                     
+    --code-chip: #d97706;                     /* Dark amber chip for text visibility in light mode */
+    --code-border: #2a2a2a;                   
 }
 
-/* -----------------------------------
-   DARK MODE COLORS
------------------------------------- */
-[data-theme="dark"] {
-    /* MAIN UI */
-    --bg: #05080d;                  /* deep navy black */
-    --text: #e6e6e6;                /* soft white */
-    --header-bg: #0a0f18cc;
-    --footer-bg: #0b111acc;
+:root[data-theme="dark"] {
+    /* Base UI: Premium Deep Navy/Black Theme */
+    --bg: #05080d;                            /* Deep navy black */
+    --text: #e6e6e6;                          /* Soft off-white */
+    --text-soft: #cfcfcf;                     /* Muted grey for secondary text */
+    --section-title: #ffffff;                 /* Pure crisp white for titles */
+    --header-bg: rgba(10, 15, 24, 0.8);       /* Dark tinted glass header */
+    --footer-bg: rgba(11, 17, 26, 0.8);       /* Dark tinted glass footer */
 
-    /* LINKS */
-    --link: #7eb6ff;
-    --link-hover: #a6ccff;
+    /* Links & Accents: High-Contrast Cyber Blues */
+    --link: #7eb6ff;                          
+    --link-hover: #a6ccff;                    
+    --accent: #2f82ff;                        /* Stronger, glowing accent blue */
 
-    /* ACCENTS */
-    --accent: #2f82ff;              /* stronger neon-blue */
+    /* Layout & Cards */
+    --divider-line: rgba(255, 255, 255, 0.18);
+    --card-bg: #1b1b1b;                       
+    --card-border: #2b2b2b;                   
 
-    /* MENU OVERLAY */
-    --menu-overlay: rgba(0, 12, 35, 0.55);
+    /* Glassmorphism */
+    --glass-bg: rgba(0, 0, 0, 0.45);          
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-hover: rgba(0, 0, 0, 0.6);        
+    --menu-overlay: rgba(0, 12, 35, 0.55);    
+
+    /* Code Blocks */
+    --code-bg: #1e1e1e;                       
+    --code-text: #e6e6e6;                     
+    --code-chip: #ffd86b;                     /* Classic vibrant yellow token chip */
+    --code-border: #2a2a2a;                   
 }
-
-
-/* -----------------------------------
-   SPACING SCALE
------------------------------------- */
-$space-1: 4px;
-$space-2: 8px;
-$space-3: 12px;
-$space-4: 16px;
-$space-5: 24px;
-$space-6: 32px;
-$space-7: 48px;
-
-
-/* -----------------------------------
-   BORDER RADII
------------------------------------- */
-$radius-s: 6px;
-$radius-m: 12px;
-$radius-l: 24px;
-
-
-/* -----------------------------------
-   SHADOWS
------------------------------------- */
-$shadow-soft: 0 4px 20px rgba(0,0,0,0.12);
-$shadow-medium: 0 6px 28px rgba(0,0,0,0.18);
-$shadow-strong: 0 10px 40px rgba(0,0,0,0.25);
-
-
-/* -----------------------------------
-   TRANSITIONS
------------------------------------- */
-$transition-fast: 0.15s ease;
-$transition-medium: 0.25s ease;
-$transition-slow: 0.35s ease;
