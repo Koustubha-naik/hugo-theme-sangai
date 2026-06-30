@@ -46,6 +46,13 @@ theme = "Sangai"
 # Helps search engines crawl your site
 enableRobotsTXT = true
 
+# =========================================================
+# TAXONOMY DISABLE CONTROL
+# Wipes out global /tags/ and /categories/ pages
+# =========================================================
+disableKinds = ["taxonomy", "term"]
+
+
 
 # ---------------------------------------------------------
 # PAGINATION
