@@ -81,19 +81,6 @@ enableRobotsTXT = true
   # googleAnalytics = "G-XXXXXXXXXX"
 
   # -------------------------------------------------------
-  # THEME COLORS
-  # -------------------------------------------------------
-  # Used globally for UI and backgrounds
-
-  [params.theme]
-
-    # Background color for dark mode
-    bgDark = "#121216"
-
-    # Background color for light mode
-    bgLight = "#e1ddb7"
-
-  # -------------------------------------------------------
   # PROFILE / HERO SECTION
   # -------------------------------------------------------
   
