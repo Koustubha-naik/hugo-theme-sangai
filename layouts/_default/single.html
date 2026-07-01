@@ -2,9 +2,6 @@
 
 <div class="single-page-padding"> 
 
-<!-- =======================================
-     FEATURED HERO WITH BLUR
-======================================= -->
 {{ with .Params.featuredimage }}
 <div class="hero-box">
     <div class="hero-blur" style="background-image: url('{{ . | relURL }}');"></div>
@@ -12,9 +9,6 @@
 </div>
 {{ end }}
 
-<!-- =======================================
-     TOC (Notion-style collapsible)
-======================================= -->
 {{ if and (.Params.toc) (.TableOfContents) }}
 <aside class="toc-sidebar closed">
     <div class="toc-title">
@@ -27,9 +21,6 @@
 {{ end }}
 
 
-<!-- =======================================
-     ARTICLE WRAPPER
-======================================= -->
 <article class="single-container">
 
     <header class="single-header">
@@ -52,7 +43,6 @@
     </header>
 
 
-    <!-- CODE BLOCK COPY ENHANCER -->
     {{ $copyIcon := partial "svg.html" (dict "name" "copy") }}
 
     {{ $content := .Content }}
@@ -74,7 +64,6 @@
     </div>
 
 </article>
-
 
 </div>
 

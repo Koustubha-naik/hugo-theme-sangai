@@ -6,15 +6,15 @@
 /* =======================================
    BLURRED HERO BACKGROUND
 ======================================= */
-
 .hero-box {
     position: relative;
     width: 100%;
-    max-width: 780px;
-    height: 260px;
+    max-width: 580px; 
+    height: auto;           
+    aspect-ratio: 16 / 9;   
     overflow: hidden;
     margin: 0 auto 1.5rem;
-    border-radius: var(--radius-m, 12px); /* Fallback added */
+    border-radius: var(--radius-m, 12px);
 }
 
 .hero-blur {
@@ -24,22 +24,22 @@
     background-position: center;
     filter: blur(16px);
     transform: scale(1.2);
-    opacity: 0.85;
+    opacity: 0.6; 
 }
 
 .hero-main {
     position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; 
+    object-position: center; 
     z-index: 2;
-    filter: brightness(0.92);
+    filter: brightness(0.95);
 }
 
 /* =======================================
    ARTICLE LAYOUT
 ======================================= */
-
 .single-container {
     width: 100%;
     max-width: 780px;
@@ -80,7 +80,6 @@
 /* =======================================
    IMAGES & LIGHTBOX
 ======================================= */
-
 .md-image {
     max-width: 780px;
     margin: 2rem auto;
@@ -93,11 +92,11 @@
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.92); /* Kept dark as it's an overlay standard */
+    background: rgba(0,0,0,0.92); 
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: $z-lightbox; /* Using new Map! */
+    z-index: $z-lightbox; 
 }
 
 .lightbox[hidden] {
@@ -125,7 +124,6 @@
 /* =======================================
    CONTENT
 ======================================= */
-
 .single-content {
     margin-top: 20px;
     font-size: 1.07rem;
@@ -154,7 +152,7 @@
 
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     margin: 30px auto;
@@ -169,9 +167,8 @@
 }
 
 /* =======================================
-   CODE BLOCKS (Now uses variables!)
+   CODE BLOCKS
 ======================================= */
-
 pre {
     background: var(--code-bg);
     border: 1px solid var(--code-border);
@@ -194,7 +191,7 @@ pre code {
 }
 
 code {
-    background: rgba(128, 128, 128, 0.15); /* Replaces #2f2f2f for better light/dark contrast */
+    background: rgba(128, 128, 128, 0.15); 
     padding: 3px 6px;
     border-radius: 5px;
     font-size: 0.92rem;
@@ -235,13 +232,12 @@ code {
 }
 
 .copy-code-btn.copied {
-    background: #10b981; /* Success green can stay hardcoded or move to variables later */
+    background: #10b981; 
 }
 
 /* ===========================================
-   LEFT SIDEBAR TOC (No more dark mode overrides!)
+   LEFT SIDEBAR TOC
 =========================================== */
-
 .toc-sidebar {
     position: fixed;
     top: 120px;
@@ -258,7 +254,7 @@ code {
     box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 
     color: var(--text);
-    z-index: $z-sidebar; /* Using new Map! */
+    z-index: 90; 
 
     display: flex;
     flex-direction: column;
@@ -346,16 +342,22 @@ code {
     opacity: 0;
 }
 
+/* HIDE TOC SIDEBAR ON SCREENS SMALLER THAN 1400px */
+@media (max-width: 1400px) {
+    .toc-sidebar {
+        display: none !important;
+    }
+}
+
 /* ============================================
    FIXED HEADER (Z-Index fix)
 ============================================ */
-
 .fixed-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: $z-header; /* Using new Map! */
+    z-index: 100; 
 }
 
 .single-page-padding {
@@ -365,7 +367,6 @@ code {
 /* ============================================
    TABLE BORDERS
 ============================================ */
-
 table {
     width: 100%;
     border-collapse: collapse;

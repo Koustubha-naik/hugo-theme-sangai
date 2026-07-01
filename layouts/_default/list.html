@@ -7,11 +7,11 @@
 <div class="list-container">
 
     {{ range $paginator.Pages }}
-    <a href="{{ .RelPermalink }}" class="list-row">
+    <a href="{{ .RelPermalink }}" class="list-row{{ if not .Params.featuredimage }} no-image{{ end }}">
 
-        {{ with .Params.featuredimage }}
+        {{ if .Params.featuredimage }}
         <div class="list-thumb">
-            <img src="{{ . | relURL }}" alt="{{ $.Title }}">
+            <img src="{{ .Params.featuredimage | relURL }}" alt="{{ .Title }}">
         </div>
         {{ end }}
 
@@ -33,21 +33,18 @@
 
 </div>
 
-<!-- PAGINATION --->
 <div class="pagination">
 
     {{ $p := .Paginator }}
     {{ $current := $p.PageNumber }}
     {{ $total := $p.TotalPages }}
 
-    <!-- FIRST -->
     {{ if ne $current 1 }}
         <a class="page-edge" href="{{ $p.First.URL }}">« First</a>
     {{ else }}
         <span class="page-edge disabled">« First</span>
     {{ end }}
 
-    <!-- WINDOW CALCULATION -->
     {{ $.Scratch.Set "start" (sub $current 1) }}
     {{ if lt ($.Scratch.Get "start") 1 }}
         {{ $.Scratch.Set "start" 1 }}
@@ -81,7 +78,6 @@
         {{ end }}
     </div>
 
-    <!-- LAST -->
     {{ if ne $current $total }}
         <a class="page-edge" href="{{ $p.Last.URL }}">Last »</a>
     {{ else }}

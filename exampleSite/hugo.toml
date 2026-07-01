@@ -33,7 +33,7 @@ baseURL = "http://localhost:1313"
 
 # Language of the site
 # Used for SEO and accessibility
-languageCode = "en-us"
+locale = "en-US"
 
 # Website title
 # Appears in browser tab, RSS, metadata

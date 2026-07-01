@@ -22,10 +22,11 @@
 .list-row {
     width: 100%;
     max-width: 840px;
-    padding: 22px;
+    min-height: 180px; 
+    padding: 0;
+    overflow: hidden;
 
     display: flex;
-    gap: 20px;
     border-radius: var(--radius-l, 20px);
 
     background: var(--glass-bg);
@@ -41,15 +42,17 @@
     .list-row:hover {
         transform: translateY(-3px);
         background: var(--glass-hover);
-        box-shadow: 0 12px 26px rgba(0,0,0,0.20);
+        box-shadow: 0 12px 26px rgba(0,0,0,0.15);
     }
 }
 
-/* Thumbnail */
+/* Thumbnail - Now much sleeker and capped in size */
 .list-thumb {
-    width: 220px;
-    height: 140px;
-    border-radius: var(--radius-l, 25px);
+    width: 30%; 
+    max-width: 260px; 
+    height: auto;
+    align-self: stretch; 
+    border-radius: 0; 
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -60,40 +63,55 @@
     object-fit: cover;
 }
 
+/* Text Content Area */
 .list-content {
-    flex: 1;
+    flex: 1; /* Tells the text to take up ALL remaining space */
+    padding: 24px 28px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
 }
 
 .list-title {
-    font-size: 1.25rem;
-    margin-bottom: 6px;
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
     color: var(--section-title);
 }
 
 .list-desc {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     color: var(--text-soft);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .list-meta {
     font-size: 0.85rem;
-    color: var(--text-soft); /* Replaced hardcoded opacity: 0.75 */
+    color: var(--text-soft);
 }
 
-/* MOBILE RESPONSIVE (Using God File Variable) */
+/* MOBILE RESPONSIVE (Untouched) */
 @media (max-width: $bp-tablet) {
     .list-row {
         flex-direction: column;
         max-width: 95%;
+        min-height: auto; 
     }
 
     .list-thumb {
         width: 100%;
-        height: 180px;
+        max-width: none; 
+        height: 180px; 
+    }
+
+    .list-content {
+        padding: 20px; 
     }
 }
-
 
 /* =====================================
    PAGINATION — CIRCLE NUMBER STYLE
@@ -162,10 +180,7 @@
     background: var(--glass-hover);
 }
 
-/* Active page (filled circle) 
-   By using section-title (black in light mode, white in dark mode) and bg (white in light mode, black in dark mode), 
-   it automatically contrasts perfectly without a special dark mode rule! 
-*/
+/* Active page (filled circle) */
 .page-number.active {
     background: var(--section-title);
     color: var(--bg);
@@ -173,7 +188,7 @@
     font-weight: bold;
 }
 
-/* MOBILE PAGINATION (Using God File Variable) */
+/* MOBILE PAGINATION */
 @media (max-width: $bp-tablet) {
     .page-number {
         width: 32px;
