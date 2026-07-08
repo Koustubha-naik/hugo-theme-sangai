@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* -------------------------------
-     TOC SMOOTH SCROLL
+     TOC SMOOTH SCROLL (FIXED FOR STICKY HEADER)
   --------------------------------*/
   document.querySelectorAll(".toc-content a").forEach(link => {
     const href = link.getAttribute("href");
@@ -29,10 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = document.querySelector(href);
       if (!target) return;
 
+      // Calculate header offset height plus extra room to push towards center
+      const headerOffset = 140; 
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
       window.scrollTo({
-        top: target.offsetTop - 40,
+        top: offsetPosition,
         behavior: "smooth"
       });
+
+      // Update URL hash smoothly without breaking position
+      history.pushState(null, null, href);
     });
   });
 
