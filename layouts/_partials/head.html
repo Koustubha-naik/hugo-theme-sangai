@@ -36,8 +36,4 @@
 {{ $scss := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $scss.RelPermalink }}">
 
-{{ with resources.Get "scss/giscus-custom.scss" }}
-  {{ . | toCSS (dict "targetPath" "css/giscus-custom.css" "outputStyle" "compressed") | fingerprint }}
-{{ end }}
-
 {{ partial "analytics.html" . }}
