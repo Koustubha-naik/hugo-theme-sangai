@@ -65,6 +65,10 @@
 
 </article>
 
+{{ if not (eq .Params.comments false) }}
+    {{ partial "comments.html" . }}
+{{ end }}
+
 </div>
 
 {{ end }}
