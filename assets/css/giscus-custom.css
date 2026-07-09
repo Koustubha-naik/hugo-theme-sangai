@@ -1,70 +1,71 @@
 /* =======================================
-   SOLID MODERN DARK GISCUS THEME
+   SOLID SOLID DARK GISCUS THEME
+   RESTYLED THREADED STRUCTURE
 ======================================= */
 main {
-  /* Text adjustments */
-  --color-text-default: #f1f5f9;       /* Crisp slate-white text */
-  --color-text-muted: #94a3b8;         /* Clear gray for timestamps */
-  --color-text-link: #38bdf8;          /* Bright sky blue for links */
-  --color-accent-fg: #0ea5e9;          /* Dynamic accent highlights */
+  /* Keep your solid dark colors */
+  --color-text-default: #f1f5f9;       
+  --color-text-muted: #94a3b8;         
+  --color-text-link: #38bdf8;          
+  --color-accent-fg: #0ea5e9;          
   
-  /* Solid Layout Canvas */
-  --color-canvas-default: #0f172a;     /* Solid deep slate background for comment blocks */
-  --color-canvas-overlay: #1e293b;     /* Lighter slate for input fields/textareas */
-  --color-border-default: #334155;     /* Clear structural borders around blocks */
-  --color-border-muted: #1e293b;       /* Muted interior borders */
+  --color-canvas-default: #0f172a;     /* Solid dark card bubble background */
+  --color-canvas-overlay: #1e293b;     /* Input boxes */
+  --color-border-default: transparent; /* No harsh borders around bubbles */
+  --color-border-muted: transparent;   
   
-  /* Action Buttons (Submit) */
   --color-btn-primary-bg: #0ea5e9;
   --color-btn-primary-border: transparent;
   --color-btn-primary-hover-bg: #0284c7;
   --color-btn-primary-text: #ffffff;
   
-  /* Utility Buttons */
   --color-btn-bg: #1e293b;
   --color-btn-border: #334155;
   --color-btn-text: #f1f5f9;
   --color-btn-hover-bg: #334155;
 
-  /* Reaction Pill Badges */
   --color-timeline-badge-bg: rgba(14, 165, 233, 0.15);
 }
 
 /* =======================================
-   STRUCTURAL SHAPE & BLOCK MODIFICATIONS
+   SHAPE RESTYLING (MATCHING YOUR IMAGE)
 ======================================= */
 
-/* Force global comment fonts to match your site font style perfectly */
+/* Force clean typography */
 .giscus-wrapper {
   font-family: 'EB Garamond', serif !important;
   font-size: 16px !important;
 }
 
-/* Style the main text input area as a solid, sleek container card */
-.giscus-wrapper .gsc-comment-box {
-  border-radius: 12px !important;
-  border: 1px solid #334155 !important;
-  background-color: #0f172a !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-
-/* Make every past comment a solid, distinct card block */
+/* 1. Turn comment bodies into highly rounded standalone bubbles */
 .giscus-comment {
-  border: 1px solid #334155 !important;
   background-color: #0f172a !important;
-  border-radius: 12px !important;
-  margin-bottom: 1.5rem !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  padding: 0.5rem !important;
+  border-radius: 20px !important; /* Matches the pill-like look in your image */
+  border: none !important;
+  padding: 0.25rem 0.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Clean circular framing for GitHub User Profiles */
+/* 2. Style the thread timeline vertical branching lines */
+.gsc-timeline-line {
+  border-left: 2px solid #334155 !important; /* The vertical line connecting threads */
+  left: 20px !important;
+}
+
+/* 3. Ensure avatars are perfectly round and spaced outside the bubbles */
 .giscus-wrapper .avatar {
   border-radius: 50% !important;
 }
 
-/* Give tabs and editor navigation switches a modern rounded look */
+/* 4. Style the text input box nicely to match the theme */
+.giscus-wrapper .gsc-comment-box {
+  border-radius: 16px !important;
+  border: 1px solid #334155 !important;
+  background-color: #0f172a !important;
+  overflow: hidden;
+}
+
+/* Clean tabs and action buttons */
 .giscus-wrapper .gsc-tab-link,
 .giscus-wrapper .btn {
   border-radius: 8px !important;
