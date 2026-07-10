@@ -55,7 +55,7 @@ body {
     display: flex;
     gap: 40px;
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
         flex-direction: column;
         gap: 24px;
     }
@@ -70,7 +70,7 @@ body {
     position: sticky;
     top: 110px;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1024px) {
         width: 100%;
         position: static;
     }
@@ -144,7 +144,7 @@ body {
     border-radius: 2px;
     backdrop-filter: blur(10px);
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
         display: none;
     }
 }
