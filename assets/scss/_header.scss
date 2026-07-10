@@ -62,20 +62,45 @@
 }
 
 /* ============================================
-   CENTER TITLE
+   CENTER TITLE & CENTER-LEFT LOGO MARK
 ============================================ */
 
 .header-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.brand {
+.brand-wrapper {
+    display: flex;
+    flex-direction: row; /* Aligns logo to the left of the text */
+    align-items: center;
+    text-decoration: none;
+    gap: 14px; /* Balanced space between image and typography */
+    transition: transform 0.2s ease, opacity 0.25s ease;
+
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+.brand-logo-img {
+    width: 46px; 
+    height: 46px; 
+    object-fit: contain; /* Ensures the image doesn't distort */
+    border-radius: 4px; /* Optional rounded edges */
+    flex-shrink: 0; /* Prevents text shifts while the logo asset loads */
+}
+
+.brand-text {
     font-family: $font-main; /* Using new Map! */
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 600;
     color: var(--text);
+    line-height: 1;
 }
 
 /* ============================================
@@ -124,7 +149,6 @@
    MOBILE RESPONSIVE
 ============================================ */
 
-/* Consolidated into one media query using the breakpoint variable */
 @media (max-width: $bp-mobile) {
 
     .site-header {
@@ -132,8 +156,17 @@
         padding: 0 18px;
     }
 
-    .brand {
-        font-size: 1.8rem;
+    .brand-logo-img {
+        width: 34px; 
+        height: 34px; 
+    }
+
+    .brand-text {
+        font-size: 1.6rem;
+    }
+
+    .brand-wrapper {
+        gap: 10px; /* Snugs alignment perfectly on mobile devices */
     }
 
     .menu-button svg {

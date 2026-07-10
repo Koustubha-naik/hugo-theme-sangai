@@ -13,10 +13,19 @@
         </button>
     </div>
 
-    <!-- CENTER: SITE TITLE -->
+    <!-- CENTER: LOGO (LEFT) & SITE TITLE (RIGHT) -->
     <div class="header-title">
-        <a href="{{ "" | relURL }}" class="brand">
-            {{ .Site.Title }}
+        <a href="{{ "" | relURL }}" class="brand-wrapper">
+            <!-- FULLY DYNAMIC TOML LOGO CHECK -->
+            {{- if and .Site.Params.logo .Site.Params.logo_path -}}
+                {{- $staticPath := printf "static/%s" .Site.Params.logo_path -}}
+                {{- if fileExists $staticPath -}}
+                    <!-- alt is left empty for screen readers to avoid redundant "Sangai Sangai" playback -->
+                    <img src="{{ .Site.Params.logo_path | relURL }}" alt="" class="brand-logo-img">
+                {{- end -}}
+            {{- end -}}
+            
+            <span class="brand-text">{{ .Site.Title }}</span>
         </a>
     </div>
 
@@ -50,5 +59,3 @@
     </div>
 
 </div>
-
-
