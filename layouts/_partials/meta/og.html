@@ -18,7 +18,9 @@
 <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
 
 {{- $ogImage := "" -}}
-{{- if .Params.image -}}
+{{- if .Params.featuredimage -}}
+  {{- $ogImage = .Params.featuredimage | absURL -}}
+{{- else if .Params.image -}}
   {{- $ogImage = .Params.image | absURL -}}
 {{- else if .Site.Params.og_image -}}
   {{- $ogImage = .Site.Params.og_image | absURL -}}

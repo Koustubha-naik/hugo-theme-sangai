@@ -17,7 +17,9 @@
 {{ end }}
 
 {{- $twImage := "" -}}
-{{- if .Params.image -}}
+{{- if .Params.featuredimage -}}
+  {{- $twImage = .Params.featuredimage | absURL -}}
+{{- else if .Params.image -}}
   {{- $twImage = .Params.image | absURL -}}
 {{- else if .Site.Params.twitter_image -}}
   {{- $twImage = .Site.Params.twitter_image | absURL -}}
