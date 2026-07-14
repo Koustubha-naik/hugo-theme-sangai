@@ -29,9 +29,9 @@
         {{ end }}
 
         {{ with .Site.Params.profile.about }}
-        <p class="profile-about">
-          {{ . }}
-        </p>
+          <div class="profile-about">
+          {{ . | markdownify }}
+          </div>
         {{ end }}
 
         {{ with .Site.Params.social }}
