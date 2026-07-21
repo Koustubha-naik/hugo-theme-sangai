@@ -6,16 +6,45 @@
 
 <div class="list-container">
 
-    {{ range $paginator.Pages }}
-    <a href="{{ .RelPermalink }}" class="list-row{{ if not .Params.featuredimage }} no-image{{ end }}">
+{{ range $paginator.Pages }}
 
-        {{ if .Params.featuredimage }}
+    {{/* -------------------------------
+         Featured Image Detection
+         Priority:
+         1. Page Resource matching featuredimage
+         2. Static featuredimage path
+         3. Automatic cover.*
+         4. No image
+    -------------------------------- */}}
+
+    {{ $imgUrl := "" }}
+
+    {{ if .Params.featuredimage }}
+
+        {{ with .Resources.GetMatch .Params.featuredimage }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ else }}
+            {{ $imgUrl = .Params.featuredimage | relURL }}
+        {{ end }}
+
+    {{ else }}
+
+        {{ with .Resources.GetMatch "cover.*" }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ end }}
+
+    {{ end }}
+
+    <a href="{{ .RelPermalink }}" class="list-row{{ if not $imgUrl }} no-image{{ end }}">
+
+        {{ if $imgUrl }}
         <div class="list-thumb">
-            <img src="{{ .Params.featuredimage | relURL }}" alt="{{ .Title }}">
+            <img src="{{ $imgUrl }}" alt="{{ .Title }}" loading="lazy">
         </div>
         {{ end }}
 
         <div class="list-content">
+
             <h2 class="list-title">{{ .Title }}</h2>
 
             {{ with .Params.description }}
@@ -29,7 +58,8 @@
         </div>
 
     </a>
-    {{ end }}
+
+{{ end }}
 
 </div>
 
@@ -59,10 +89,12 @@
     {{ $end := $.Scratch.Get "end" }}
 
     <div class="page-numbers">
-        {{ range seq $start $end }}
-            {{ $i := . }}
 
+        {{ range seq $start $end }}
+
+            {{ $i := . }}
             {{ $url := "" }}
+
             {{ range $p.Pagers }}
                 {{ if eq .PageNumber $i }}
                     {{ $url = .URL }}
@@ -76,6 +108,7 @@
             {{ end }}
 
         {{ end }}
+
     </div>
 
     {{ if ne $current $total }}

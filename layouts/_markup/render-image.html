@@ -1,8 +1,22 @@
-{{- $src := .Destination | safeURL -}}
+{{- $src := .Destination -}}
 {{- $alt := .Text | default "" -}}
 {{- $title := .Title | default "" -}}
 
-{{- $img := resources.Get .Destination -}}
+{{- /* 1. Try to find the image in the Leaf Bundle */ -}}
+{{- $img := .Page.Resources.GetMatch $src -}}
+
+{{- /* 2. If not found in bundle, try global assets */ -}}
+{{- if not $img -}}
+  {{- $img = resources.Get $src -}}
+{{- end -}}
+
+{{- /* 3. Set the final source URL */ -}}
+{{- if $img -}}
+  {{- $src = $img.RelPermalink -}}
+{{- else -}}
+  {{- $src = $src | safeURL -}} {{- /* Fallback for external URLs or static folder */ -}}
+{{- end -}}
+
 {{- $isSquare := false -}}
 {{- if $img }}
   {{- if eq $img.Width $img.Height }}

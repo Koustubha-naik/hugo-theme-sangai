@@ -20,6 +20,13 @@
 {{- $ogImage := "" -}}
 {{- if .Params.featuredimage -}}
   {{- $ogImage = .Params.featuredimage | absURL -}}
+  {{- with .Resources.GetMatch .Params.featuredimage -}}
+    {{- $ogImage = .Permalink -}}
+  {{- end -}}
+{{- else if .Resources.GetMatch "cover.*" -}}
+  {{- with .Resources.GetMatch "cover.*" -}}
+    {{- $ogImage = .Permalink -}}
+  {{- end -}}
 {{- else if .Params.image -}}
   {{- $ogImage = .Params.image | absURL -}}
 {{- else if .Site.Params.og_image -}}

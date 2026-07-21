@@ -19,6 +19,13 @@
 {{- $twImage := "" -}}
 {{- if .Params.featuredimage -}}
   {{- $twImage = .Params.featuredimage | absURL -}}
+  {{- with .Resources.GetMatch .Params.featuredimage -}}
+    {{- $twImage = .Permalink -}}
+  {{- end -}}
+{{- else if .Resources.GetMatch "cover.*" -}}
+  {{- with .Resources.GetMatch "cover.*" -}}
+    {{- $twImage = .Permalink -}}
+  {{- end -}}
 {{- else if .Params.image -}}
   {{- $twImage = .Params.image | absURL -}}
 {{- else if .Site.Params.twitter_image -}}

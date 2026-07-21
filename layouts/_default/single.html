@@ -2,10 +2,23 @@
 
 <div class="single-page-padding"> 
 
-{{ with .Params.featuredimage }}
+{{/* --- AUTO-DETECT COVER IMAGE LOGIC --- */}}
+{{ $imgUrl := "" }}
+{{ if .Params.featuredimage }}
+    {{ $imgUrl = .Params.featuredimage | relURL }}
+    {{ with .Resources.GetMatch .Params.featuredimage }}
+        {{ $imgUrl = .RelPermalink }}
+    {{ end }}
+{{ else }}
+    {{ with .Resources.GetMatch "cover.*" }}
+        {{ $imgUrl = .RelPermalink }}
+    {{ end }}
+{{ end }}
+
+{{ if $imgUrl }}
 <div class="hero-box">
-    <div class="hero-blur" style="background-image: url('{{ . | relURL }}');"></div>
-    <img class="hero-main" src="{{ . | relURL }}" alt="{{ $.Title }}">
+    <div class="hero-blur" style="background-image: url('{{ $imgUrl }}');"></div>
+    <img class="hero-main" src="{{ $imgUrl }}" alt="{{ $.Title }}">
 </div>
 {{ end }}
 
