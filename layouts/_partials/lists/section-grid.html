@@ -1,0 +1,56 @@
+{{ partial "breadcrumbs.html" . }}
+
+<h1 class="page-title">{{ .Title }}</h1>
+
+<div class="list-container section-grid-container">
+
+{{ range .Sections.ByTitle }}
+
+    {{ $imgUrl := "" }}
+
+    {{ if .Params.featuredimage }}
+        {{ with .Resources.GetMatch .Params.featuredimage }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ else }}
+            {{ $imgUrl = .Params.featuredimage | relURL }}
+        {{ end }}
+    {{ else }}
+        {{ with .Resources.GetMatch "cover.*" }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ end }}
+    {{ end }}
+
+    <a href="{{ .RelPermalink }}" class="list-row section-card{{ if not $imgUrl }} no-image{{ end }}">
+
+        {{ if $imgUrl }}
+        <div class="list-thumb">
+            <img src="{{ $imgUrl }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+
+        <div class="list-content">
+
+            <div class="card-header">
+                <h2 class="list-title">{{ .Title }}</h2>
+                
+                {{ $count := len .RegularPagesRecursive }}
+                <span class="count-badge">
+                    {{ if eq $count 1 }}1 Post{{ else }}{{ $count }} Posts{{ end }}
+                </span>
+            </div>
+
+            {{ with .Params.description }}
+            <p class="list-desc">{{ . }}</p>
+            {{ end }}
+
+        </div>
+
+    </a>
+
+{{ else }}
+
+    <p class="empty-message">No sections found.</p>
+
+{{ end }}
+
+</div>

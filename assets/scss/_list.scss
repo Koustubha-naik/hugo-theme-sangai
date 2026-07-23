@@ -1,6 +1,9 @@
 /* =====================================
-   LIST SECTION / BLOG FEED
-   Depends on variables defined in _variables.scss
+   LIST SECTION / SECTION GRID
+   Used by:
+   - article-list.html
+   - section-grid.html
+   - breadcrumbs.html
 ===================================== */
 
 .page-title {
@@ -9,6 +12,49 @@
     color: var(--section-title);
 }
 
+/* =====================================
+   BREADCRUMBS
+===================================== */
+
+.breadcrumbs {
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+
+    ol {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        gap: 6px;
+    }
+
+    a {
+        color: var(--text-soft);
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--section-title);
+        }
+    }
+
+    .crumb-separator {
+        color: var(--text-soft);
+        opacity: 0.5;
+    }
+
+    .crumb-current {
+        color: var(--text);
+        font-weight: 600;
+    }
+}
+
+/* =====================================
+   LIST CONTAINER (Default Horizontal Stack)
+===================================== */
+
 .list-container {
     display: flex;
     flex-direction: column;
@@ -16,17 +62,26 @@
     gap: 26px;
 }
 
+/* Empty State Message */
+.empty-message {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 1.1rem;
+}
+
 /* =====================================
-   BLOG CARD (.list-row)
+   CARD (Base Horizontal Article Layout)
 ===================================== */
+
 .list-row {
     width: 100%;
     max-width: 840px;
-    min-height: 180px; 
-    padding: 0;
-    overflow: hidden;
+    min-height: 180px;
 
     display: flex;
+    overflow: hidden;
+
     border-radius: var(--radius-l, 20px);
 
     background: var(--glass-bg);
@@ -34,25 +89,55 @@
 
     color: var(--text);
     text-decoration: none;
-    transition: 0.25s ease;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.list-row:focus-visible {
+    outline: 2px solid var(--section-title);
+    outline-offset: 4px;
 }
 
 /* Hover (desktop only) */
 @media (pointer: fine) {
+
     .list-row:hover {
-        transform: translateY(-3px);
+        transform: translateY(-4px);
         background: var(--glass-hover);
-        box-shadow: 0 12px 26px rgba(0,0,0,0.15);
+        border-color: rgba(255, 255, 255, .12);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
     }
+
 }
 
-/* Thumbnail - Now much sleeker and capped in size */
+/* =====================================
+   WITHOUT IMAGE
+===================================== */
+
+.list-row.no-image {
+    min-height: 135px;
+}
+
+.list-row.no-image .list-content {
+    padding: 28px 32px;
+}
+
+.list-row.no-image .list-title {
+    margin-bottom: 10px;
+}
+
+/* =====================================
+   THUMBNAIL
+===================================== */
+
 .list-thumb {
-    width: 30%; 
-    max-width: 260px; 
-    height: auto;
-    align-self: stretch; 
-    border-radius: 0; 
+    width: 30%;
+    max-width: 260px;
+    align-self: stretch;
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -60,67 +145,161 @@
 .list-thumb img {
     width: 100%;
     height: 100%;
+    display: block;
     object-fit: cover;
+    transition: transform .35s ease;
 }
 
-/* Text Content Area */
+@media (pointer: fine) {
+
+    .list-row:hover .list-thumb img {
+        transform: scale(1.05);
+    }
+
+}
+
+/* =====================================
+   CONTENT
+===================================== */
+
 .list-content {
-    flex: 1; /* Tells the text to take up ALL remaining space */
-    padding: 24px 28px; 
+    flex: 1;
+    padding: 24px 28px;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .list-title {
     font-size: 1.35rem;
+    line-height: 1.35;
     margin-bottom: 8px;
-    line-height: 1.4;
     color: var(--section-title);
 }
 
 .list-desc {
-    font-size: 0.98rem;
+    font-size: .98rem;
+    line-height: 1.6;
     color: var(--text-soft);
     margin-bottom: 12px;
+
+    /* Multi-line clamp */
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     overflow: hidden;
 }
 
 .list-meta {
-    font-size: 0.85rem;
+    margin-top: auto;
+    font-size: .85rem;
     color: var(--text-soft);
+    opacity: .85;
 }
 
-/* MOBILE RESPONSIVE (Untouched) */
+/* =====================================
+   SECTION GRID CARDS (Top-Level Folders)
+===================================== */
+
+.list-container.section-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Vertical Stacked Card Layout */
+.list-row.section-card {
+    flex-direction: column;
+    max-width: none;
+    min-height: auto;
+    height: 100%;
+}
+
+.list-row.section-card .list-thumb {
+    width: 100%;
+    max-width: none;
+    height: 180px;
+}
+
+.list-row.section-card .list-content {
+    padding: 20px 24px 24px;
+    flex-grow: 1;
+}
+
+.list-row.section-card.no-image .list-content {
+    padding: 28px 24px;
+}
+
+/* Header & Badge for Section Cards */
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    .list-title {
+        margin-bottom: 0;
+    }
+}
+
+.count-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: var(--glass-hover);
+    border: 1px solid var(--glass-border);
+    color: var(--text-soft);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* =====================================
+   MOBILE RESPONSIVE
+===================================== */
+
 @media (max-width: $bp-tablet) {
+
     .list-row {
+        max-width: 100%;
+        min-height: auto;
         flex-direction: column;
-        max-width: 95%;
-        min-height: auto; 
     }
 
     .list-thumb {
         width: 100%;
-        max-width: none; 
-        height: 180px; 
+        max-width: none;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
 
     .list-content {
-        padding: 20px; 
+        padding: 20px;
     }
+
+    .list-row.no-image {
+        min-height: auto;
+    }
+
+    .list-container.section-grid-container {
+        grid-template-columns: 1fr;
+    }
+
 }
 
 /* =====================================
-   PAGINATION — CIRCLE NUMBER STYLE
+   PAGINATION
 ===================================== */
 
 .pagination {
     margin: 40px auto 0;
     max-width: 850px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,71 +307,83 @@
     flex-wrap: wrap;
 }
 
-/* First / Last buttons */
+/* Edge Buttons */
 .page-edge {
     padding: 6px 14px;
-    font-size: 0.95rem;
-
+    font-size: .95rem;
     border-radius: var(--radius-m, 10px);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-
     color: var(--text);
     text-decoration: none;
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .page-edge:hover {
     background: var(--glass-hover);
 }
 
+.page-edge:focus-visible {
+    outline: 2px solid var(--section-title);
+    outline-offset: 2px;
+}
+
 .page-edge.disabled {
-    opacity: 0.3;
+    opacity: .35;
     pointer-events: none;
 }
 
-/* Number container */
+/* Numbers */
 .page-numbers {
     display: flex;
     gap: 12px;
 }
 
-/* Circle number */
 .page-number {
     width: 36px;
     height: 36px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
     border: 1px solid var(--glass-border);
     background: var(--glass-bg);
-    text-decoration: none;
-
     color: var(--text);
-    font-size: 0.95rem;
-    transition: 0.2s ease;
+    text-decoration: none;
+    font-size: .95rem;
+    transition: .2s ease;
 }
 
 .page-number:hover {
     background: var(--glass-hover);
 }
 
-/* Active page (filled circle) */
-.page-number.active {
-    background: var(--section-title);
-    color: var(--bg);
-    border-color: var(--section-title);
-    font-weight: bold;
+.page-number:focus-visible {
+    outline: 2px solid var(--section-title);
+    outline-offset: 2px;
 }
 
-/* MOBILE PAGINATION */
+.page-number.active {
+    background: var(--section-title);
+    border-color: var(--section-title);
+    color: var(--bg);
+    font-weight: 700;
+}
+
 @media (max-width: $bp-tablet) {
+
+    .pagination {
+        gap: 14px;
+    }
+
     .page-number {
         width: 32px;
         height: 32px;
-        font-size: 0.85rem;
+        font-size: .85rem;
     }
+
+    .page-edge {
+        font-size: .85rem;
+    }
+
 }

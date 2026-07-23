@@ -1,0 +1,104 @@
+{{ partial "breadcrumbs.html" . }}
+
+<h1 class="page-title">{{ .Title }}</h1>
+
+{{ $paginator := .Paginate (.Pages.ByDate.Reverse) }}
+
+<div class="list-container">
+
+{{ range $paginator.Pages }}
+
+    {{ $imgUrl := "" }}
+
+    {{ if .Params.featuredimage }}
+        {{ with .Resources.GetMatch .Params.featuredimage }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ else }}
+            {{ $imgUrl = .Params.featuredimage | relURL }}
+        {{ end }}
+    {{ else }}
+        {{ with .Resources.GetMatch "cover.*" }}
+            {{ $imgUrl = .RelPermalink }}
+        {{ end }}
+    {{ end }}
+
+    <a href="{{ .RelPermalink }}" class="list-row{{ if not $imgUrl }} no-image{{ end }}">
+
+        {{ if $imgUrl }}
+        <div class="list-thumb">
+            <img src="{{ $imgUrl }}" alt="{{ .Title }}" loading="lazy">
+        </div>
+        {{ end }}
+
+        <div class="list-content">
+
+            <h2 class="list-title">{{ .Title }}</h2>
+
+            {{ with .Params.description }}
+            <p class="list-desc">{{ . }}</p>
+            {{ end }}
+
+            <div class="list-meta">
+                <span class="time-ago" data-timestamp="{{ .Date.Unix }}">{{ .Date.Format "Jan 2, 2006" }}</span>
+            </div>
+
+        </div>
+
+    </a>
+
+{{ else }}
+
+    <p class="empty-message">No articles found in this section.</p>
+
+{{ end }}
+
+</div>
+
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="pagination" aria-label="Pagination">
+
+    {{ $p := .Paginator }}
+    {{ $current := $p.PageNumber }}
+    {{ $total := $p.TotalPages }}
+
+    {{ if ne $current 1 }}
+        <a class="page-edge" href="{{ $p.First.URL }}" aria-label="Go to first page">« First</a>
+    {{ else }}
+        <span class="page-edge disabled" aria-hidden="true">« First</span>
+    {{ end }}
+
+    {{ $start := sub $current 1 }}
+    {{ if lt $start 1 }}
+        {{ $start = 1 }}
+    {{ end }}
+
+    {{ $end := add $start 2 }}
+    {{ if gt $end $total }}
+        {{ $end = $total }}
+    {{ end }}
+
+    <div class="page-numbers">
+
+        {{ range seq $start $end }}
+
+            {{ $i := . }}
+            {{ $pager := index $p.Pagers (sub $i 1) }}
+
+            {{ if eq $i $current }}
+                <span class="page-number active" aria-current="page" aria-label="Page {{ $i }}">{{ $i }}</span>
+            {{ else }}
+                <a href="{{ $pager.URL }}" class="page-number" aria-label="Go to page {{ $i }}">{{ $i }}</a>
+            {{ end }}
+
+        {{ end }}
+
+    </div>
+
+    {{ if ne $current $total }}
+        <a class="page-edge" href="{{ $p.Last.URL }}" aria-label="Go to last page">Last »</a>
+    {{ else }}
+        <span class="page-edge disabled" aria-hidden="true">Last »</span>
+    {{ end }}
+
+</nav>
+{{ end }}
